@@ -1,0 +1,38 @@
+<mat-dialog-content>
+  <p>You are about to rent this car: {{ data.car.type }}.</p>
+  <p>Please give me some information below</p>
+  <mat-form-field>
+    <mat-label>Név</mat-label>
+    <input matInput [(ngModel)]="bookingData.name" required="true" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="bookingData.email" required="true" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Cím</mat-label>
+    <input matInput [(ngModel)]="bookingData.location" required="true" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Telefonszám</mat-label>
+    <input matInput [(ngModel)]="bookingData.phoneNumber" required="true" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Foglalandó napok száma</mat-label>
+    <input
+      matInput
+      [(ngModel)]="bookingData.daysToRent"
+      type="number"
+      [min]="1"
+    />
+  </mat-form-field>
+  <p>
+    Your current price is {{ bookingData.daysToRent * data.car.dailyPrice }}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="bookingData" cdkFocusInitial>
+    Ok
+  </button>
+</mat-dialog-actions>
