@@ -16,6 +16,15 @@ interface DialogData {
   car: Car;
 }
 
+interface BookingData {
+  name?: string;
+  email: string;
+  location: string;
+  phoneNumber: string;
+  daysToRent: number;
+  price: number;
+}
+
 @Component({
   selector: 'app-car-booking-dialog',
   imports: [
@@ -33,6 +42,15 @@ interface DialogData {
 export class CarBookingDialogComponent {
   readonly dialogRef = inject(MatDialogRef<CarBookingDialogComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+
+  bookingData: BookingData = {
+    name: '',
+    email: '',
+    location: '',
+    phoneNumber: '',
+    daysToRent: 0,
+    price: 0,
+  };
 
   onNoClick(): void {
     this.dialogRef.close();

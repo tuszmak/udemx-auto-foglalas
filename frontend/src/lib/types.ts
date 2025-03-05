@@ -15,6 +15,6 @@ export const BookingSchema = z.object({
   email: z.string().email(),
   location: z.string(),
   phoneNumber: z.string(),
-  dateToRent: z.number(),
+  daysToRent: z.number(),
   price: z.number(),
 });
