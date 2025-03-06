@@ -1,4 +1,4 @@
-import { Car } from './types';
+import { BookingData, Car } from './types';
 
 export const cars: Car[] = [
   {
@@ -37,3 +37,10 @@ export const cars: Car[] = [
     reservedUntil: null,
   },
 ];
+
+export const changeCarState = (car: Car, booking: BookingData) => {
+  const now = new Date();
+  car.reservedFrom = new Date();
+  now.setDate(now.getDate() + booking.daysToRent);
+  car.reservedUntil = now;
+};

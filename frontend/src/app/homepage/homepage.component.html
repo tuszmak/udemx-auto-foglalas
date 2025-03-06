@@ -7,19 +7,14 @@
     [formGroup]="campaignOne"
   >
     <input matStartDate placeholder="Start date" formControlName="start" />
-    <input
-      matEndDate
-      placeholder="End date"
-      formControlName="end"
-      (dateChange)="dateRangeChange()"
-    />/>
+    <input matEndDate placeholder="End date" formControlName="end" />/>
   </mat-date-range-input>
   <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
 <div class="flex gap-5">
-  <mat-card *ngFor="let car of availableCars" class="block w-[350px]">
+  <mat-card *ngFor="let car of availableCars()" class="block w-[350px]">
     <p>Type: {{ car.type }}</p>
     <p>Price: {{ car.dailyPrice }} Currency</p>
     <button mat-flat-button (click)="bookCar(car)">Book</button>

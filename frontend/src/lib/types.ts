@@ -10,6 +10,15 @@ export interface Car {
   reservedUntil: Date | null;
 }
 
+export interface BookingData {
+  name?: string;
+  email: string;
+  location: string;
+  phoneNumber: string;
+  daysToRent: number;
+  price: number;
+}
+
 export const BookingSchema = z.object({
   name: z.string().default('No name'),
   email: z.string().email(),

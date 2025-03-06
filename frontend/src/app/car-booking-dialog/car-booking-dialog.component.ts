@@ -10,19 +10,10 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Car } from '../../lib/types';
+import { BookingData, Car } from '../../lib/types';
 
 interface DialogData {
   car: Car;
-}
-
-interface BookingData {
-  name?: string;
-  email: string;
-  location: string;
-  phoneNumber: string;
-  daysToRent: number;
-  price: number;
 }
 
 @Component({

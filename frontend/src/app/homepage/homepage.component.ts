@@ -16,7 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { cars } from '../../lib/cars';
+import { cars, changeCarState } from '../../lib/cars';
 import { BookingSchema, Car } from '../../lib/types';
 import { CarBookingDialogComponent } from '../car-booking-dialog/car-booking-dialog.component';
 
@@ -41,9 +41,7 @@ const year = today.getFullYear();
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomepageComponent implements OnChanges {
-  availableCars = cars.filter((car) =>
-    this.isCarAvailable(car.reservedFrom, car.reservedUntil)
-  );
+  availableCars = signal(this.filterAvailableCars(cars));
 
   title = 'frontend';
   readonly rentLength: WritableSignal<number> = signal(0);
@@ -55,23 +53,22 @@ export class HomepageComponent implements OnChanges {
     end: new FormControl(new Date(year, month, 16)),
   });
 
-  dateRangeChange() {
-    console.log(this.campaignOne.get('start')?.value);
-    console.log(this.campaignOne.get('end')?.value);
+  private filterAvailableCars(cars: Car[]): Car[] {
+    return cars.filter((car) =>
+      isCarAvailable(car.reservedFrom, car.reservedUntil)
+    );
   }
 
-  isCarAvailable(lastRentStart: Date | null, lastRentEnd: Date | null) {
-    if (!lastRentStart || !lastRentEnd) return true;
-    else {
-      return today > lastRentEnd && today < lastRentStart;
-    }
+  dateRangeChange() {
+    //TODO set available cars based on this.
+    console.log(this.campaignOne.get('start')?.value);
+    console.log(this.campaignOne.get('end')?.value);
   }
 
   bookCar(carToBeBooked: Car) {
     const dialogRef = this.dialogService.open(CarBookingDialogComponent, {
       data: { car: carToBeBooked },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result !== undefined) {
@@ -83,6 +80,10 @@ export class HomepageComponent implements OnChanges {
           );
         } else {
           this.toastService.open('Booking successful!');
+          changeCarState(carToBeBooked, validatedData.data);
+          this.availableCars.set(
+            this.filterAvailableCars(this.availableCars())
+          );
         }
       }
     });
@@ -92,3 +93,13 @@ export class HomepageComponent implements OnChanges {
     console.log(changes);
   }
 }
+
+const isCarAvailable = (
+  lastRentStart: Date | null,
+  lastRentEnd: Date | null
+) => {
+  if (!lastRentStart || !lastRentEnd) return true;
+  else {
+    return today > lastRentEnd && today < lastRentStart;
+  }
+};
