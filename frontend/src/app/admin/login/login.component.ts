@@ -27,7 +27,7 @@ export class LoginComponent {
   login() {
     const { userName, password } = this.loginData.getRawValue();
     localStorage.setItem('userName', userName);
-    localStorage.setItem('passWord', password);
+    localStorage.setItem('password', password);
     window.location.reload();
   }
 }

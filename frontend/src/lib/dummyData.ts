@@ -1,4 +1,4 @@
-import { Car } from './types';
+import { BookingData, Car } from './types';
 
 export const cars: Car[] = [
   {
@@ -35,5 +35,33 @@ export const cars: Car[] = [
     dailyPrice: 40,
     reservedFrom: null,
     reservedUntil: null,
+  },
+];
+
+export const dummyBookingData: BookingData[] = [
+  {
+    carName: 'Toyota Corolla',
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    location: 'New York',
+    phoneNumber: '123-456-7890',
+    daysToRent: 5,
+    price: 250,
+  },
+  {
+    carName: 'Honda Civic',
+    email: 'janesmith@example.com',
+    location: 'Los Angeles',
+    phoneNumber: '987-654-3210',
+    daysToRent: 3,
+  },
+  {
+    carName: 'Ford Mustang',
+    name: 'Alice Johnson',
+    email: 'alicej@example.com',
+    location: 'Chicago',
+    phoneNumber: '555-123-4567',
+    daysToRent: 7,
+    price: 700,
   },
 ];

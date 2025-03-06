@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ modifiedCar.type }}</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <input matInput [(ngModel)]="modifiedCar.type" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Daily price</mat-label>
+    <input matInput [(ngModel)]="modifiedCar.dailyPrice" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="modifiedCar" cdkFocusInitial>
+    Modify
+  </button>
+</mat-dialog-actions>

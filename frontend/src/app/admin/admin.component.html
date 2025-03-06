@@ -2,5 +2,46 @@
   <app-login />
 </div>
 <div *ngIf="loginData">
-  <div>Foo</div>
+  <div>Üdv a fedélzeten, admin!</div>
+
+  <mat-expansion-panel
+    (opened)="panelOpenState.set(true)"
+    (closed)="panelOpenState.set(false)"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> Foglalások </mat-panel-title>
+      <mat-panel-description>
+        Kattints, hogy lásd a foglalásokat
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table mat-table [dataSource]="bookings" class="mat-elevation-z8">
+      <!--- Prodban a column kulcsok hasonlóak lennének az i18n kulcsokhoz, így jó lehet a dinamikus megoldás. -->
+
+      <ng-container
+        *ngFor="let column of displayedColumns"
+        [matColumnDef]="column"
+      >
+        <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    (opened)="panelOpenState.set(true)"
+    (closed)="panelOpenState.set(false)"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> Autók </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="flex">
+      <mat-card *ngFor="let car of cars" class="block w-[350px]">
+        <p>Type: {{ car.type }}</p>
+        <p>Price: {{ car.dailyPrice }} Currency</p>
+        <button mat-flat-button (click)="openDialog(car)">Modify</button>
+      </mat-card>
+    </div>
+  </mat-expansion-panel>
 </div>
