@@ -3,9 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnChanges,
+  OnInit,
   signal,
-  SimpleChanges,
   WritableSignal,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -16,8 +15,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { cars, changeCarState } from '../../lib/cars';
-import { BookingSchema, Car } from '../../lib/types';
+import { getOverlappingDaysInIntervals, interval } from 'date-fns';
+import { changeCarState } from '../../lib/cars';
+import { cars } from '../../lib/dummyData';
+import { BookingData, BookingSchema, Car } from '../../lib/types';
 import { CarBookingDialogComponent } from '../car-booking-dialog/car-booking-dialog.component';
 
 const today = new Date();
@@ -40,10 +41,9 @@ const year = today.getFullYear();
   styleUrl: './homepage.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomepageComponent implements OnChanges {
-  availableCars = signal(this.filterAvailableCars(cars));
+export class HomepageComponent implements OnInit {
+  availableCars = signal<Car[]>([]);
 
-  title = 'frontend';
   readonly rentLength: WritableSignal<number> = signal(0);
   readonly dialogService = inject(MatDialog);
   readonly toastService = inject(MatSnackBar);
@@ -53,53 +53,68 @@ export class HomepageComponent implements OnChanges {
     end: new FormControl(new Date(year, month, 16)),
   });
 
-  private filterAvailableCars(cars: Car[]): Car[] {
-    return cars.filter((car) =>
-      isCarAvailable(car.reservedFrom, car.reservedUntil)
-    );
+  ngOnInit(): void {
+    this.availableCars.set(this.filterAvailableCars(cars));
+    this.campaignOne.valueChanges.subscribe((value) => {
+      this.availableCars.set(this.filterAvailableCars(cars));
+    });
   }
 
-  dateRangeChange() {
-    //TODO set available cars based on this.
-    console.log(this.campaignOne.get('start')?.value);
-    console.log(this.campaignOne.get('end')?.value);
+  private filterAvailableCars(cars: Car[]): Car[] {
+    return cars.filter((car) =>
+      this.isCarAvailable(car.reservedFrom, car.reservedUntil)
+    );
   }
 
   bookCar(carToBeBooked: Car) {
     const dialogRef = this.dialogService.open(CarBookingDialogComponent, {
       data: { car: carToBeBooked },
     });
+
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      if (result !== undefined) {
-        const validatedData = BookingSchema.safeParse(result);
-        if (validatedData.error) {
-          this.toastService.open(
-            'Your booking was cancelled due to this: ' +
-              validatedData.error.message
-          );
-        } else {
+      if (!result) {
+        return;
+      }
+
+      const validatedData = BookingSchema.safeParse(result);
+      const bookingStart = this.campaignOne.get('start')?.value;
+      if (validatedData.error) {
+        this.toastService.open(
+          'Your booking was cancelled due to this: ' +
+            validatedData.error.message
+        );
+      } else if (!bookingStart) {
+        this.toastService.open("There's no booking start date.");
+      } else {
+        const bookingData = validatedData.data;
+        changeCarState(carToBeBooked, bookingData, bookingStart);
+        console.log(carToBeBooked);
+
+        bookingData.price = carToBeBooked.dailyPrice * bookingData.daysToRent;
+        const response = mockPostToBackend(bookingData);
+        if (response.success) {
           this.toastService.open('Booking successful!');
-          changeCarState(carToBeBooked, validatedData.data);
-          this.availableCars.set(
-            this.filterAvailableCars(this.availableCars())
-          );
+          this.availableCars.set(this.filterAvailableCars(cars));
+        } else {
+          this.toastService.open('Booking unsuccessful.');
         }
       }
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+  isCarAvailable(lastRentStart: Date | null, lastRentEnd: Date | null) {
+    if (!lastRentStart || !lastRentEnd) return true;
+    const searchStart = this.campaignOne.get('start')?.value;
+    const searchEnd = this.campaignOne.get('end')?.value;
+    if (!searchStart || !searchEnd) return false;
+    else {
+      const rentInterval = interval(searchStart, searchEnd);
+      const carInterval = interval(lastRentStart, lastRentEnd);
+      return getOverlappingDaysInIntervals(rentInterval, carInterval) === 0;
+    }
   }
 }
 
-const isCarAvailable = (
-  lastRentStart: Date | null,
-  lastRentEnd: Date | null
-) => {
-  if (!lastRentStart || !lastRentEnd) return true;
-  else {
-    return today > lastRentEnd && today < lastRentStart;
-  }
-};
+function mockPostToBackend(data: BookingData) {
+  return { success: true };
+}

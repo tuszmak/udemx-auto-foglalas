@@ -35,6 +35,7 @@ export class CarBookingDialogComponent {
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
 
   bookingData: BookingData = {
+    carName: this.data.car.type,
     name: '',
     email: '',
     location: '',
