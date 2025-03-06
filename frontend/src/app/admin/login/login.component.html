@@ -1,0 +1,21 @@
+<h1 class="text-4xl">
+  Kérlek pozícionáld az összes szemgolyódat a beléptető űrlaphoz, és add meg az
+  adataidat!
+</h1>
+<mat-card appearance="outlined">
+  <mat-card-content
+    >Simple card
+    <form [formGroup]="loginData">
+      <mat-form-field>
+        <mat-label>Input</mat-label>
+        <input matInput formControlName="userName" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Input</mat-label>
+        <input matInput formControlName="password" />
+      </mat-form-field>
+    </form>
+    <button (click)="login()">Log in</button>
+  </mat-card-content>
+</mat-card>

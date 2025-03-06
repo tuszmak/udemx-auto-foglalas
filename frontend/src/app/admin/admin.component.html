@@ -1,1 +1,6 @@
-<p>admin works!</p>
+<div *ngIf="!loginData">
+  <app-login />
+</div>
+<div *ngIf="loginData">
+  <div>Foo</div>
+</div>
