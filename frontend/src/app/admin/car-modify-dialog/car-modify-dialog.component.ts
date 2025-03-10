@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -6,6 +6,7 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
+  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,14 +28,19 @@ import { Car } from '../../../lib/types';
   templateUrl: './car-modify-dialog.component.html',
   styleUrl: './car-modify-dialog.component.css',
 })
-export class CarModifyDialogComponent {
-  readonly car = inject<Car>(MAT_DIALOG_DATA);
+export class CarModifyDialogComponent implements OnInit {
+  readonly dialogRef = inject(MatDialogRef<CarModifyDialogComponent>);
+  readonly data = inject<{ car: Car }>(MAT_DIALOG_DATA);
+
+  ngOnInit(): void {
+    console.log(this.data.car);
+  }
 
   modifiedCar: Car = {
-    dailyPrice: this.car.dailyPrice,
-    image: this.car.image,
-    reservedFrom: this.car.reservedFrom,
-    reservedUntil: this.car.reservedUntil,
-    type: this.car.type,
+    dailyPrice: this.data.car.dailyPrice,
+    image: this.data.car.image,
+    reservedFrom: this.data.car.reservedFrom,
+    reservedUntil: this.data.car.reservedUntil,
+    type: this.data.car.type,
   };
 }

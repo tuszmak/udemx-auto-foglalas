@@ -33,9 +33,11 @@ export class AdminComponent {
   displayedColumns = Object.keys(this.bookings[0]);
 
   openDialog(car: Car) {
+    console.log(car);
+
     const dialogRef = this.dialogService.open(CarModifyDialogComponent, {
       data: {
-        car,
+        car: car,
       },
     });
     dialogRef.afterClosed().subscribe((result: Partial<Car>) => {
@@ -44,6 +46,8 @@ export class AdminComponent {
       2. Egy Partial kocsit adok vissza, és majd a backend ALTER SQL-el átírja, ami nem null. 
       Én ezt fogom megcsinálni, mert a kliensnek kevesebb data.
       */
+      car.dailyPrice = result.dailyPrice ?? car.dailyPrice;
+      car.type = result.type ?? car.type;
     });
   }
 }
