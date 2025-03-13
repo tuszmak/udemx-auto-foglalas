@@ -1,8 +1,8 @@
 <div *ngIf="!loginData">
   <app-login />
 </div>
-<div *ngIf="loginData">
-  <div>Üdv a fedélzeten, admin!</div>
+<div *ngIf="loginData" class="m-4">
+  <div class="mx-4"><p class="text-xl">Üdv a fedélzeten, admin!</p></div>
 
   <mat-expansion-panel
     (opened)="panelOpenState.set(true)"
@@ -36,12 +36,13 @@
     <mat-expansion-panel-header>
       <mat-panel-title> Autók </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="flex">
+    <div class="flex items-center">
       <mat-card *ngFor="let car of cars" class="block w-[350px]">
-        <p>Type: {{ car.type }}</p>
-        <p>Price: {{ car.dailyPrice }} Currency</p>
-        <button mat-flat-button (click)="openDialog(car)">Modify</button>
+        <p>Model: {{ car.type }}</p>
+        <p>Napi ár: {{ car.dailyPrice }} Pénznem</p>
+        <button mat-flat-button (click)="openDialog(car)">Módosítás</button>
       </mat-card>
+      <button mat-button (click)="createNewCar()">Új autó létrehozása</button>
     </div>
   </mat-expansion-panel>
 </div>

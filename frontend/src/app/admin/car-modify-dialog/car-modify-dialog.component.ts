@@ -11,6 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { cars } from '../../../lib/dummyData';
 import { Car } from '../../../lib/types';
 
 @Component({
@@ -30,17 +31,29 @@ import { Car } from '../../../lib/types';
 })
 export class CarModifyDialogComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<CarModifyDialogComponent>);
-  readonly data = inject<{ car: Car }>(MAT_DIALOG_DATA);
+  readonly data = inject<{ car?: Car }>(MAT_DIALOG_DATA);
 
   ngOnInit(): void {
     console.log(this.data.car);
   }
 
-  modifiedCar: Car = {
-    dailyPrice: this.data.car.dailyPrice,
-    image: this.data.car.image,
-    reservedFrom: this.data.car.reservedFrom,
-    reservedUntil: this.data.car.reservedUntil,
-    type: this.data.car.type,
-  };
+  modifiedCar: Car = this.data?.car
+    ? {
+        dailyPrice: this.data.car.dailyPrice,
+        image: this.data.car.image,
+        reservedFrom: this.data.car.reservedFrom,
+        reservedUntil: this.data.car.reservedUntil,
+        type: this.data.car.type,
+      }
+    : {
+        dailyPrice: 0,
+        image: '',
+        reservedFrom: null,
+        reservedUntil: null,
+        type: '',
+      };
+
+  removeCar(type: string) {
+    cars.splice(cars.findIndex((car) => car.type === type));
+  }
 }
