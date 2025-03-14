@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.primary {
+  @include mat.theme(
+    (
+      color: mat.$blue-palette,
+    )
+  );
+}
+
+.secondary {
+  @include mat.theme(
+    (
+      color: mat.$green-palette,
+    )
+  );
+}
+
+.tertiary {
+  @include mat.theme(
+    (
+      color: mat.$orange-palette,
+    )
+  );
+}
+
+.warn {
+  @include mat.theme(
+    (
+      color: mat.$yellow-palette,
+    )
+  );
+}
+
+.error {
+  @include mat.theme(
+    (
+      color: mat.$red-palette,
+    )
+  );
+}

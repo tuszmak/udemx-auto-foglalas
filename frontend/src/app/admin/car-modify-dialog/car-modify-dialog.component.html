@@ -1,24 +1,32 @@
-<h2 mat-dialog-title>{{ modifiedCar.type }}</h2>
-<mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Model</mat-label>
-    <input matInput [(ngModel)]="modifiedCar.type" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Napi ár</mat-label>
-    <input matInput [(ngModel)]="modifiedCar.dailyPrice" />
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button
-    mat-button
-    [mat-dialog-close]=""
-    (click)="removeCar(modifiedCar.type)"
-    cdkFocusInitial
-  >
-    Autó törlése
-  </button>
-  <button mat-button [mat-dialog-close]="modifiedCar" cdkFocusInitial>
-    Módosítások elmentése
-  </button>
-</mat-dialog-actions>
+<div class="max-w-96">
+  <h2 mat-dialog-title class="m-3 text-xs font-semibold">
+    {{ modifiedCar.type }}
+  </h2>
+  <mat-dialog-content class="flex gap-4">
+    <mat-form-field class="w-full">
+      <mat-label>Model</mat-label>
+      <input matInput [(ngModel)]="modifiedCar.type" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Napi ár</mat-label>
+      <input matInput [(ngModel)]="modifiedCar.dailyPrice" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="flex w-full justify-between">
+      <button
+        *ngIf="isEdit"
+        mat-raised-button
+        [mat-dialog-close]=""
+        (click)="removeCar(modifiedCar.type)"
+        cdkFocusInitial
+        class="error"
+      >
+        Autó törlése
+      </button>
+      <button mat-flat-button [mat-dialog-close]="modifiedCar" cdkFocusInitial>
+        Módosítások elmentése
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>

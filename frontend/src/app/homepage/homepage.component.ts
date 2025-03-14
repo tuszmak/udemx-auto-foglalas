@@ -10,7 +10,10 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import {
+  MAT_DATE_LOCALE,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +23,7 @@ import { changeCarState } from '../../lib/cars';
 import { cars } from '../../lib/dummyData';
 import { BookingData, BookingSchema, Car } from '../../lib/types';
 import { CarBookingDialogComponent } from '../car-booking-dialog/car-booking-dialog.component';
+import { CarCardComponent } from '../car-card/car-card.component';
 
 const today = new Date();
 const month = today.getMonth();
@@ -35,8 +39,12 @@ const year = today.getFullYear();
     ReactiveFormsModule,
     CommonModule,
     MatSnackBarModule,
+    CarCardComponent,
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'hu-HU' },
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
