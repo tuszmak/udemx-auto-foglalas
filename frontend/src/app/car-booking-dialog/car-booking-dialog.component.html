@@ -1,38 +1,56 @@
 <mat-dialog-content>
-  <p>Jelenleg ezt az autót akarod lefoglalni: {{ data.car.type }}.</p>
+  <app-small-label> Választott modell </app-small-label>
+  <p class="text-xl font-bold">{{ data.car.type }}</p>
   <p>A foglalás befejezéséhez kérlek adj meg néhány adatot.</p>
-  <mat-form-field>
-    <mat-label>Név</mat-label>
-    <input matInput [(ngModel)]="bookingData.name" required="true" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="bookingData.email" required="true" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Cím</mat-label>
-    <input matInput [(ngModel)]="bookingData.location" required="true" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Telefonszám</mat-label>
-    <input matInput [(ngModel)]="bookingData.phoneNumber" required="true" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Foglalandó napok száma</mat-label>
-    <input
-      matInput
-      [(ngModel)]="bookingData.daysToRent"
-      type="number"
-      [min]="1"
-    />
-  </mat-form-field>
-  <p>
-    Jelenlegi ár: {{ bookingData.daysToRent * data.car.dailyPrice }} pénznem
-  </p>
+  <div class="flex flex-col pt-4">
+    <mat-form-field>
+      <mat-label>Név</mat-label>
+      <input matInput [(ngModel)]="bookingData.name" required="true" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="bookingData.email" required="true" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cím</mat-label>
+      <input matInput [(ngModel)]="bookingData.location" required="true" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Telefonszám</mat-label>
+      <input matInput [(ngModel)]="bookingData.phoneNumber" required="true" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Foglalandó napok száma</mat-label>
+      <input
+        matInput
+        [(ngModel)]="bookingData.daysToRent"
+        type="number"
+        [min]="1"
+      />
+    </mat-form-field>
+  </div>
+  <div class="flex justify-between">
+    <div>
+      <app-small-label> Napiár </app-small-label>
+      <p>
+        <span class="font-bold">{{ data.car.dailyPrice }} </span>
+        pénznem/nap
+      </p>
+    </div>
+    <div class="text-right">
+      <app-small-label> Jelenlegi ár </app-small-label>
+      <p>
+        <span class="font-bold"
+          >{{ bookingData.daysToRent * data.car.dailyPrice }}
+        </span>
+        pénznem
+      </p>
+    </div>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Mégse foglalok</button>
-  <button mat-button [mat-dialog-close]="bookingData" cdkFocusInitial>
+  <button mat-flat-button [mat-dialog-close]="bookingData" cdkFocusInitial>
     Befejezés
   </button>
 </mat-dialog-actions>

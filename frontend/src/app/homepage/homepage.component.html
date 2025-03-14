@@ -1,8 +1,9 @@
-<div class="m-4">
+<div class="m-4 flex flex-col gap-4">
+  <label for="datePicker" class="text-xl font-bold">Mikorra foglalnál?</label>
   <mat-form-field class="w-72">
-    <mat-label>Mikorra foglalnál?</mat-label>
     <mat-date-range-input
       [rangePicker]="picker"
+      id="datePicker"
       [comparisonStart]="campaignOne.value.start"
       [comparisonEnd]="campaignOne.value.end"
       [formGroup]="campaignOne"
@@ -15,7 +16,7 @@
   </mat-form-field>
 </div>
 <div class="flex flex-col gap-5 mx-4">
-  <p class="text-xl">Elérhető autók:</p>
+  <p class="text-xl font-bold">Elérhető autók</p>
   <div class="flex gap-5 flex-wrap">
     <app-car-card
       *ngFor="let car of availableCars()"

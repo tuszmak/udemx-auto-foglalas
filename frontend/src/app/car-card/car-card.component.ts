@@ -3,11 +3,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Car } from '../../lib/types';
-import { CardShellComponent } from '../admin/card-shell/card-shell.component';
+import { CardShellComponent } from '../common/card-shell/card-shell.component';
+import { SmallLabelComponent } from '../common/small-label/small-label.component';
 
 @Component({
   selector: 'app-car-card',
-  imports: [MatCardModule, CommonModule, MatButtonModule, CardShellComponent],
+  imports: [
+    MatCardModule,
+    CommonModule,
+    MatButtonModule,
+    CardShellComponent,
+    SmallLabelComponent,
+  ],
   templateUrl: './car-card.component.html',
   styleUrl: './car-card.component.css',
 })

@@ -9,8 +9,8 @@ import { cars, dummyBookingData } from '../../lib/dummyData';
 import { translateColumnName } from '../../lib/translate';
 import { BookingData, Car } from '../../lib/types';
 import { CarCardComponent } from '../car-card/car-card.component';
+import { CardShellComponent } from '../common/card-shell/card-shell.component';
 import { CarModifyDialogComponent } from './car-modify-dialog/car-modify-dialog.component';
-import { CardShellComponent } from './card-shell/card-shell.component';
 import { LoginComponent } from './login/login.component';
 
 @Component({
