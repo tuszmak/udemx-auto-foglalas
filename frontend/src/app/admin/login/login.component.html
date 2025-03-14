@@ -4,16 +4,16 @@
     <mat-card-content>
       <form [formGroup]="loginData">
         <mat-form-field>
-          <mat-label>Input</mat-label>
+          <mat-label>Email</mat-label>
           <input matInput formControlName="userName" />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Input</mat-label>
-          <input matInput formControlName="password" />
+          <mat-label>Jelszó</mat-label>
+          <input matInput formControlName="password" type="password" />
         </mat-form-field>
       </form>
-      <button (click)="login()">Log in</button>
+      <button mat-button (click)="login()">Bejelentkezés</button>
     </mat-card-content>
   </mat-card>
 </div>

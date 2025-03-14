@@ -1,8 +1,12 @@
 <div
   class="w-full flex justify-between items-center px-4 py-2 text-2xl bg-slate-300 text-blue-950 font-semibold"
 >
-  <a href="/"><button mat-stroked-button>Kezdőlap</button></a>
+  <a mat-stroked-button routerLink="/">Kezdőlap</a>
   Car rental
-  <a href="admin"><button mat-stroked-button>Admin oldal</button></a>
+
+  <button mat-stroked-button (click)="logout()" *ngIf="userName">
+    Kijelentkezés
+  </button>
+  <a mat-stroked-button routerLink="/admin">Admin oldal</a>
 </div>
 <hr class="border-1 border-black mb-4" />

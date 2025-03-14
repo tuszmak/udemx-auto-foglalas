@@ -3,7 +3,7 @@ import { BookingData, Car } from './types';
 export const changeCarState = (
   car: Car,
   booking: BookingData,
-  startOfBooking: Date
+  startOfBooking: Date,
 ) => {
   car.reservedFrom = startOfBooking;
 

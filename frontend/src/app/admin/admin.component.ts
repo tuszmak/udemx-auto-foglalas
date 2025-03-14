@@ -39,11 +39,6 @@ export class AdminComponent {
       },
     });
     dialogRef.afterClosed().subscribe((result: Partial<Car>) => {
-      /* Itt ketféle megoldás lehet, backendtől függően.
-      1. A frontenden csomagolok össze egy teljes kocsit, elküldöm backendre és az berakja a DB-be.
-      2. Egy Partial kocsit adok vissza, és majd a backend ALTER SQL-el átírja, ami nem null. 
-      Én ezt fogom megcsinálni, mert a kliensnek kevesebb data.
-      */
       car.dailyPrice = result.dailyPrice ?? car.dailyPrice;
       car.type = result.type ?? car.type;
     });

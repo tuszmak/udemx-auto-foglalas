@@ -8,9 +8,8 @@ describe('CarBookingDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CarBookingDialogComponent]
-    })
-    .compileComponents();
+      imports: [CarBookingDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CarBookingDialogComponent);
     component = fixture.componentInstance;
