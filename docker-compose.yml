@@ -7,6 +7,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4200:4200"
-    environment:
-      - NODE_ENV=production
     command: ["pnpm", "start_docker"]

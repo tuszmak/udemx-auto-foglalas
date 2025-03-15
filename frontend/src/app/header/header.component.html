@@ -1,8 +1,14 @@
 <div
-  class="w-full flex justify-between items-center px-4 py-2 text-2xl bg-slate-300 text-blue-950 font-semibold"
+  class="w-full flex justify-between items-center px-4 py-2 text-2xl bg-blue-100/50 text-blue-950 font-semibold shadow-lg"
 >
-  <a href="/"><button mat-stroked-button>Kezdőlap</button></a>
-  Car rental
-  <a href="admin"><button mat-stroked-button>Admin oldal</button></a>
+  <div class="flex gap-2 items-center">
+    <a routerLink="/"> Car rental</a>
+    <a mat-button routerLink="/">Kezdőlap</a>
+  </div>
+
+  <div class="flex gap-2">
+    <button mat-button (click)="logout()" *ngIf="email">Kijelentkezés</button>
+    <a mat-button routerLink="/admin">Admin oldal</a>
+  </div>
 </div>
 <hr class="border-1 border-black mb-4" />

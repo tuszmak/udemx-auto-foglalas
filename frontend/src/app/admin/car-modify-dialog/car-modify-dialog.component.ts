@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -25,35 +26,26 @@ import { Car } from '../../../lib/types';
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    CommonModule,
   ],
   templateUrl: './car-modify-dialog.component.html',
-  styleUrl: './car-modify-dialog.component.css',
+  styleUrl: './car-modify-dialog.component.scss',
 })
-export class CarModifyDialogComponent implements OnInit {
+export class CarModifyDialogComponent {
   readonly dialogRef = inject(MatDialogRef<CarModifyDialogComponent>);
   readonly data = inject<{ car?: Car }>(MAT_DIALOG_DATA);
-
-  ngOnInit(): void {
-    console.log(this.data.car);
-  }
-
-  modifiedCar: Car = this.data?.car
-    ? {
-        dailyPrice: this.data.car.dailyPrice,
-        image: this.data.car.image,
-        reservedFrom: this.data.car.reservedFrom,
-        reservedUntil: this.data.car.reservedUntil,
-        type: this.data.car.type,
-      }
-    : {
-        dailyPrice: 0,
-        image: '',
-        reservedFrom: null,
-        reservedUntil: null,
-        type: '',
-      };
+  isEdit = !!this.data?.car;
+  modifiedCar: Car = this.data?.car ? { ...this.data.car } : getDefaultCar();
 
   removeCar(type: string) {
     cars.splice(cars.findIndex((car) => car.type === type));
   }
 }
+
+const getDefaultCar = (): Car => ({
+  dailyPrice: 0,
+  image: '',
+  reservedFrom: null,
+  reservedUntil: null,
+  type: '',
+});

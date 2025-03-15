@@ -1,0 +1,23 @@
+<app-card-shell>
+  <div class="flex justify-between">
+    <div>
+      <app-small-label>Modell</app-small-label>
+      <p class="text-lg font-bold">{{ car.type }}</p>
+    </div>
+    <div>
+      <app-small-label>Napi ár</app-small-label>
+      <p>
+        <span class="font-bold">{{ car.dailyPrice }}</span> Pénznem
+      </p>
+    </div>
+  </div>
+  <img
+    *ngIf="car.image"
+    [src]="car.image"
+    class="rounded-xl aspect-video object-cover object-center"
+  />
+
+  <button mat-flat-button (click)="buttonWasClicked()">
+    {{ buttonText }}
+  </button>
+</app-card-shell>

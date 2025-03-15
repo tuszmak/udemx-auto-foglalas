@@ -11,6 +11,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BookingData, Car } from '../../lib/types';
+import { SmallLabelComponent } from '../common/small-label/small-label.component';
 
 interface DialogData {
   car: Car;
@@ -26,6 +27,8 @@ interface DialogData {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    SmallLabelComponent,
+    SmallLabelComponent,
   ],
   templateUrl: './car-booking-dialog.component.html',
   styleUrl: './car-booking-dialog.component.css',

@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { cars } from '../../lib/dummyData';
 import { CarBookingDialogComponent } from './car-booking-dialog.component';
 
 describe('CarBookingDialogComponent', () => {
@@ -8,9 +10,12 @@ describe('CarBookingDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CarBookingDialogComponent]
-    })
-    .compileComponents();
+      imports: [CarBookingDialogComponent],
+      providers: [
+        { provide: MatDialogRef, useValue: {} }, // Mock MatDialogRef
+        { provide: MAT_DIALOG_DATA, useValue: { car: cars[0] } },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CarBookingDialogComponent);
     component = fixture.componentInstance;
