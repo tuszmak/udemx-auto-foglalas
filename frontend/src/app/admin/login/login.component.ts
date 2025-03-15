@@ -47,7 +47,7 @@ export class LoginComponent {
       this.errors = true;
       return;
     }
-    localStorage.setItem('userName', email);
+    localStorage.setItem('email', email);
     localStorage.setItem('password', password);
     window.location.reload();
   }

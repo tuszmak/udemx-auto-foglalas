@@ -10,14 +10,14 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  userName = localStorage.getItem('userName');
+  email = localStorage.getItem('email');
 
   constructor(private router: Router) {}
 
   logout() {
-    localStorage.removeItem('userName');
+    localStorage.removeItem('email');
     localStorage.removeItem('password');
     this.router.navigate(['/']);
-    this.userName = localStorage.getItem('userName');
+    this.email = localStorage.getItem('email');
   }
 }

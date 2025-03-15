@@ -30,7 +30,7 @@ import { LoginComponent } from './login/login.component';
   styleUrl: './admin.component.css',
 })
 export class AdminComponent {
-  loginData = localStorage.getItem('userName');
+  loginData = localStorage.getItem('email');
   readonly panelOpenState = signal(false);
   readonly dialogService = inject(MatDialog);
   readonly translateColumnName = translateColumnName;

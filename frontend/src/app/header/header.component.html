@@ -7,9 +7,7 @@
   </div>
 
   <div class="flex gap-2">
-    <button mat-button (click)="logout()" *ngIf="userName">
-      Kijelentkezés
-    </button>
+    <button mat-button (click)="logout()" *ngIf="email">Kijelentkezés</button>
     <a mat-button routerLink="/admin">Admin oldal</a>
   </div>
 </div>
