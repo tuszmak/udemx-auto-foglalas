@@ -61,6 +61,14 @@ export class HomepageComponent implements OnInit {
     end: new FormControl(new Date(year, month, 16)),
   });
 
+  get searchStart(): Date | null | undefined {
+    return this.campaignOne.get('start')?.value;
+  }
+
+  get searchEnd(): Date | null | undefined {
+    return this.campaignOne.get('end')?.value;
+  }
+
   ngOnInit(): void {
     this.availableCars.set(this.filterAvailableCars(cars));
     this.campaignOne.valueChanges.subscribe((value) => {
@@ -68,6 +76,7 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  //TODO test
   private filterAvailableCars(cars: Car[]): Car[] {
     return cars.filter((car) =>
       this.isCarAvailable(car.reservedFrom, car.reservedUntil),
@@ -111,6 +120,7 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  //TODO test
   isCarAvailable(lastRentStart: Date | null, lastRentEnd: Date | null) {
     if (!lastRentStart || !lastRentEnd) {
       return true;

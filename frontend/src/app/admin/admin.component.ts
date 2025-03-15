@@ -5,7 +5,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
-import { cars, dummyBookingData } from '../../lib/dummyData';
+import {
+  cars,
+  createNewCar,
+  dummyBookingData,
+  modifyCar,
+} from '../../lib/dummyData';
 import { translateColumnName } from '../../lib/translate';
 import { BookingData, Car } from '../../lib/types';
 import { CarCardComponent } from '../car-card/car-card.component';
@@ -46,8 +51,7 @@ export class AdminComponent {
       },
     });
     dialogRef.afterClosed().subscribe((result?: Car) => {
-      car.dailyPrice = result?.dailyPrice ?? car.dailyPrice;
-      car.type = result?.type ?? car.type;
+      modifyCar(car, result);
       /* Itt ketféle megoldás lehet, backendtől függően.
       1. A frontenden csomagolok össze egy teljes kocsit, elküldöm backendre és az berakja a DB-be.
       2. Egy Partial kocsit adok vissza, és majd a backend ALTER SQL-el átírja, ami nem null. 
@@ -56,6 +60,7 @@ export class AdminComponent {
     });
   }
 
+  //TODO test
   createNewCar() {
     const dialogRef = this.dialogService.open(CarModifyDialogComponent);
     dialogRef.afterClosed().subscribe((result?: Car) => {
@@ -67,7 +72,9 @@ export class AdminComponent {
         reservedFrom: null,
         reservedUntil: null,
       };
-      cars.push(newCar);
+
+      //TODO ezt, és a többi ""backend"" hívást kiszervezni a dummyDataba
+      createNewCar(newCar);
     });
   }
 }

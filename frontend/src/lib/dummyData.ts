@@ -67,3 +67,12 @@ export const dummyBookingData: BookingData[] = [
     price: 700,
   },
 ];
+
+export function createNewCar(newCar: Car) {
+  cars.push(newCar);
+}
+
+export function modifyCar(car: Car, result: Car | undefined) {
+  car.dailyPrice = result?.dailyPrice ?? car.dailyPrice;
+  car.type = result?.type ?? car.type;
+}
