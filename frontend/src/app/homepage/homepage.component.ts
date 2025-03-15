@@ -61,12 +61,12 @@ export class HomepageComponent implements OnInit {
     end: new FormControl(new Date(year, month, 16)),
   });
 
-  get searchStart(): Date | null | undefined {
-    return this.campaignOne.get('start')?.value;
+  get searchStart(): Date | null {
+    return this.campaignOne.get('start')?.value ?? null;
   }
 
-  get searchEnd(): Date | null | undefined {
-    return this.campaignOne.get('end')?.value;
+  get searchEnd(): Date | null {
+    return this.campaignOne.get('end')?.value ?? null;
   }
 
   ngOnInit(): void {
@@ -120,20 +120,20 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  //TODO test
   isCarAvailable(lastRentStart: Date | null, lastRentEnd: Date | null) {
     if (!lastRentStart || !lastRentEnd) {
       return true;
     }
 
-    const searchStart = this.campaignOne.get('start')?.value;
-    const searchEnd = this.campaignOne.get('end')?.value;
+    const searchStart = this.searchStart;
+    const searchEnd = this.searchEnd;
     if (!searchStart || !searchEnd) {
-      return false;
+      return true;
     }
 
     const rentInterval = interval(searchStart, searchEnd);
     const carInterval = interval(lastRentStart, lastRentEnd);
+
     return getOverlappingDaysInIntervals(rentInterval, carInterval) === 0;
   }
 }
