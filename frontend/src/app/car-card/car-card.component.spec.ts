@@ -8,12 +8,18 @@ describe('CarCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CarCardComponent]
-    })
-    .compileComponents();
+      imports: [CarCardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CarCardComponent);
     component = fixture.componentInstance;
+    component.car = {
+      type: '',
+      dailyPrice: 0,
+      image: '',
+      reservedFrom: null,
+      reservedUntil: null,
+    };
     fixture.detectChanges();
   });
 
