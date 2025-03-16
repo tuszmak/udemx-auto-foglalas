@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Car } from '../../lib/types';
 import { HomepageComponent } from './homepage.component';
 
 describe('HomepageComponent', () => {
@@ -52,5 +53,58 @@ describe('HomepageComponent', () => {
     const lastRentEnd = new Date('2025-04-15');
 
     expect(component.isCarAvailable(lastRentStart, lastRentEnd)).toBeFalse();
+  });
+});
+
+describe('IsCarAvailableTests', () => {
+  let component: HomepageComponent;
+  let fixture: ComponentFixture<HomepageComponent>;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomepageComponent, ReactiveFormsModule],
+      providers: [FormBuilder],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    spyOn(component, 'isCarAvailable').and.callFake(
+      (reservedFrom, reservedUntil) => {
+        return !reservedFrom && !reservedUntil;
+      },
+    );
+  });
+
+  it('should return only available cars', () => {
+    const cars: Car[] = [
+      {
+        type: 'Sedan',
+        image: '',
+        dailyPrice: 50,
+        reservedFrom: null,
+        reservedUntil: null,
+      },
+      {
+        type: 'SUV',
+        image: '',
+        dailyPrice: 80,
+        reservedFrom: new Date(),
+        reservedUntil: new Date(),
+      },
+      {
+        type: 'Hatchback',
+        image: '',
+        dailyPrice: 40,
+        reservedFrom: null,
+        reservedUntil: null,
+      },
+    ];
+
+    const result = component['filterAvailableCars'](cars);
+
+    expect(result.length).toBe(2);
+    expect(result[0].type).toBe('Sedan');
+    expect(result[1].type).toBe('Hatchback');
   });
 });

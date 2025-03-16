@@ -76,7 +76,6 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  //TODO test
   private filterAvailableCars(cars: Car[]): Car[] {
     return cars.filter((car) =>
       this.isCarAvailable(car.reservedFrom, car.reservedUntil),
