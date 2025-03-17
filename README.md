@@ -29,7 +29,7 @@ cd ./frontend
 pnpm run start
 ```
 
-A belépési adatok az admin felülethez:
+A belépési adatok az admin felülethez:\
 Email: admin@admin.com\
 Jelszó: admin
 
