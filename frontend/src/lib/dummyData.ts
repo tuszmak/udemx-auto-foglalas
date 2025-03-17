@@ -68,7 +68,7 @@ export const dummyBookingData: BookingData[] = [
   },
 ];
 
-export function createNewCar(newCar: Car) {
+export function createNewCarBackend(newCar: Car) {
   cars.push(newCar);
 }
 

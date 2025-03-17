@@ -7,7 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import {
   cars,
-  createNewCar,
+  createNewCarBackend,
   dummyBookingData,
   modifyCar,
 } from '../../lib/dummyData';
@@ -60,21 +60,25 @@ export class AdminComponent {
     });
   }
 
-  //TODO test
   createNewCar() {
     const dialogRef = this.dialogService.open(CarModifyDialogComponent);
     dialogRef.afterClosed().subscribe((result?: Car) => {
-      if (!result) return;
-      const newCar: Car = {
-        type: result.type ?? 'No name',
-        image: result.image ?? '',
-        dailyPrice: result.dailyPrice ?? 0,
-        reservedFrom: null,
-        reservedUntil: null,
-      };
-
-      //TODO ezt, és a többi ""backend"" hívást kiszervezni a dummyDataba
-      createNewCar(newCar);
+      const newCar = this.createNewCarObject(result);
+      if (!newCar) {
+        return;
+      }
+      createNewCarBackend(newCar);
     });
+  }
+
+  createNewCarObject(result?: Car) {
+    if (!result) return;
+    return {
+      type: result.type ?? 'No name',
+      image: result.image ?? '',
+      dailyPrice: result.dailyPrice ?? 0,
+      reservedFrom: null,
+      reservedUntil: null,
+    };
   }
 }
