@@ -44,10 +44,12 @@ Jelszó: admin
 ## Requirements
 
 - For docker
+
   Docker
 
 - For local
-  Pnpm 10
+
+  Pnpm 10\
   Angular cli
 
 ## Installation
