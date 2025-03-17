@@ -29,6 +29,10 @@ cd ./frontend
 pnpm run start
 ```
 
+A belépési adatok az admin felülethez:
+Email: admin@admin.com
+Jelszó: admin
+
 # Angol
 
 ## Technologies
@@ -64,3 +68,8 @@ Date fns
   cd frontend
   pnpm run start
   ```
+
+Credentials for the admin page:
+
+Email: admin@admin.com
+Password: admin
