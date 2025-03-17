@@ -2,9 +2,9 @@
 
 ## Technológiák
 
-Angular 19
-Material Angular
-Date fns
+- Angular 19
+- Material Angular
+- Date fns
 
 ## Követelmények a futtatáshoz
 
@@ -29,13 +29,17 @@ cd ./frontend
 pnpm run start
 ```
 
+A belépési adatok az admin felülethez:
+Email: admin@admin.com\
+Jelszó: admin
+
 # Angol
 
 ## Technologies
 
-Angular 19
-Material Angular
-Date fns
+- Angular 19
+- Material Angular
+- Date fns
 
 ## Requirements
 
@@ -64,3 +68,8 @@ Date fns
   cd frontend
   pnpm run start
   ```
+
+Credentials for the admin page:
+
+Email: admin@admin.com\
+Password: admin
